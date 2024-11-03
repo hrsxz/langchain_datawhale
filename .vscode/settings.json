@@ -1,0 +1,12 @@
+{
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=100"
+    ],
+    "files.trimTrailingWhitespace": true,
+    "python.sortImports.path": "isort",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    }
+}

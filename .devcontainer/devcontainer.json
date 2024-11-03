@@ -1,0 +1,46 @@
+{
+	"name": "langchain-dev-container",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	// "containerUser": "dev",
+	// "postCreateCommand": "pip install -r requirements.txt",
+	// "remoteUser": "dev",
+	// Activate
+	"customizations": {
+		"vscode": {
+			// Should be synced manually with `.vscode/extensions.json`
+			"extensions": [
+				"EditorConfig.EditorConfig",
+				"hediet.vscode-drawio",
+				"ms-python.python",
+				"ms-python.black-formatter",
+				"streetsidesoftware.code-spell-checker",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"GitLab.gitlab-workflow",
+				"njpwerner.autodocstring",
+				"ms-vscode-remote.remote-containers",
+				"timonwong.shellcheck",
+				"ms-azuretools.vscode-docker",
+				"ms-python.pylint",
+				"ms-python.flake8",
+				"vivaxy.vscode-conventional-commits",
+				"donjayamanne.githistory",
+				"eamodio.gitlens",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.vscode-jupyter-cell-tags",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				"ms-toolsai.vscode-jupyter-slideshow",
+				"mechatroner.rainbow-csv",
+				"janisdd.vscode-edit-csv",
+				"MarkLarah.pre-commit-vscode",
+				"yzhang.markdown-all-in-one",
+				"redhat.vscode-yaml",
+				"ritwickdey.LiveServer"
+			]
+		}
+	}
+}
