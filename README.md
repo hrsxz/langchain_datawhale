@@ -49,9 +49,9 @@
 #### 1.1 技术资源要求
 
 - **CPU**:  Intel 5代处理器（云CPU方面，建议选择 2 核以上的云CPU服务）
-  
+
 - **内存（RAM）**: 至少 4 GB
-  
+
 
 - **操作系统**：Windows、macOS、Linux均可
 
@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ```shell
 # Linux 系统
 cd project/serve
-uvicorn api:app --reload 
+uvicorn api:app --reload
 ```
 
 ```shell
@@ -108,7 +108,7 @@ python run_gradio.py -model_name='chatglm_std' -embedding_model='m3e' -db_path='
      - [√] 新增知识库内容
      - [√] 新增 Datawhale 的所有 Md 的总结
      - [√] 修复 gradio 显示错误
- 
+
    - **目前支持的模型**
      - OpenAi
        - [√] gpt-3.5-turbo
@@ -168,17 +168,17 @@ https://github.com/datawhalechina/llm-universe/tree/main
 
 1.用户提出问题 Query
 
-2.加载和读取知识库文档  
+2.加载和读取知识库文档
 
-3.对知识库文档进行分割  
+3.对知识库文档进行分割
 
-4.对分割后的知识库文本向量化并存入向量库建立索引 
+4.对分割后的知识库文本向量化并存入向量库建立索引
 
-5.对问句 Query 向量化  
+5.对问句 Query 向量化
 
 6.在知识库文档向量中匹配出与问句 Query 向量最相似的 top k 个
 
-7.匹配出的知识库文本文本作为上下文 Context 和问题⼀起添加到 prompt 中   
+7.匹配出的知识库文本文本作为上下文 Context 和问题⼀起添加到 prompt 中
 
 8.提交给 LLM 生成回答 Answer
 
@@ -394,7 +394,7 @@ from langchain.vectorstores import Chroma
 
 DEFAULT_DB_PATH = "../../data_base/knowledge_db"
 DEFAULT_PERSIST_PATH = "../../data_base/vector_db"
-... 
+...
 ...
 ...
 def file_loader(file, loaders):
@@ -460,7 +460,7 @@ def create_db(files=DEFAULT_DB_PATH, persist_directory=DEFAULT_PERSIST_PATH, emb
     ....此处省略了其他代码
     ....
     return vectordb
-...........    
+...........
 ```
 
 **2.** 而在切分好知识库文本之后，需要对文本进行 **向量化** 。该项目在 **project/embedding/call_embedding.py** ，文本嵌入方式可选本地 m3e 模型，以及调用 openai 和 zhipuai 的 api 的方式进行文本嵌入。代码如下：
@@ -473,7 +473,8 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(r"../../")
 from embedding.zhipuai_embedding import ZhipuAIEmbeddings
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-from langchain.embeddings.openai import OpenAIEmbeddings
+# from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 from llm.call_llm import parse_llm_api_key
 
 
@@ -531,7 +532,7 @@ def create_db(files=DEFAULT_DB_PATH, persist_directory=DEFAULT_PERSIST_PATH, emb
     documents=split_docs,
     embedding=embeddings,
     persist_directory=persist_directory  # 允许我们将persist_directory目录保存到磁盘上
-    ) 
+    )
 
     vectordb.persist()
     return vectordb
@@ -565,7 +566,7 @@ for i, sim_doc in enumerate(sim_docs):
 ```
 
 ```
-检索到的第0个内容: 
+检索到的第0个内容:
 导，同时也能体会到这三门数学课在机器学习上碰撞产生的“数学之美”。
 1.1
 引言
@@ -576,7 +577,7 @@ for i, sim_doc in enumerate(sim_docs):
 的一元一次函数。
 --------------
 
-检索到的第1个内容: 
+检索到的第1个内容:
 模型：机器学习的一般流程如下：首先收集若干样本（假设此时有 100 个），然后将其分为训练样本
 （80 个）和测试样本（20 个），其中 80 个训练样本构成的集合称为“训练集”，20 个测试样本构成的集合
 称为“测试集”，接着选用某个机器学习算法，让其在训练集上进行“学习”（或称为“训练”），然后产出
@@ -584,7 +585,7 @@ for i, sim_doc in enumerate(sim_docs):
 得到“模型”（或称为“学习器”），最后用测试集来测试模型的效果。执行以上流程时，表示我们已经默
 --------------
 
-检索到的第2个内容: 
+检索到的第2个内容:
 →_→
 欢迎去各大电商平台选购纸质版南瓜书《机器学习公式详解》
 ←_←
@@ -720,7 +721,7 @@ from qa_chain.get_vectordb import get_vectordb
 
 class Chat_QA_chain_self:
     """"
-    带历史记录的问答链  
+    带历史记录的问答链
     - model：调用的模型名称
     - temperature：温度系数，控制生成的随机性
     - top_k：返回检索的前k个相似文档
@@ -733,7 +734,7 @@ class Chat_QA_chain_self:
     - Spark_api_secret：星火秘钥
     - Wenxin_secret_key：文心秘钥
     - embeddings：使用的embedding模型
-    - embedding_key：使用的embedding模型的秘钥（智谱或者OpenAI）  
+    - embedding_key：使用的embedding模型的秘钥（智谱或者OpenAI）
     """
     def __init__(self,model:str, temperature:float=0.0, top_k:int=4, chat_history:list=[], file_path:str=None, persist_path:str=None, appid:str=None, api_key:str=None, Spark_api_secret:str=None,Wenxin_secret_key:str=None, embedding = "openai",embedding_key:str=None):
         self.model = model
@@ -752,13 +753,13 @@ class Chat_QA_chain_self:
 
 
         self.vectordb = get_vectordb(self.file_path, self.persist_path, self.embedding,self.embedding_key)
-        
-    
+
+
     def clear_history(self):
         "清空历史记录"
         return self.chat_history.clear()
 
-    
+
     def change_history_length(self,history_len:int=1):
         """
         保存指定对话轮次的历史记录
@@ -770,20 +771,20 @@ class Chat_QA_chain_self:
         n = len(self.chat_history)
         return self.chat_history[n-history_len:]
 
- 
+
     def answer(self, question:str=None,temperature = None, top_k = 4):
         """"
         核心方法，调用问答链
-        arguments: 
+        arguments:
         - question：用户提问
         """
-        
+
         if len(question) == 0:
             return "", self.chat_history
-        
+
         if len(question) == 0:
             return ""
-        
+
         if temperature == None:
             temperature = self.temperature
 
@@ -791,7 +792,7 @@ class Chat_QA_chain_self:
 
         #self.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-        retriever = self.vectordb.as_retriever(search_type="similarity",   
+        retriever = self.vectordb.as_retriever(search_type="similarity",
                                         search_kwargs={'k': top_k})  #默认similarity，k=4
 
         qa = ConversationalRetrievalChain.from_llm(

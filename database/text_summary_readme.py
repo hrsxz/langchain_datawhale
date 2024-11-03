@@ -70,7 +70,9 @@ def generate_llm_summary(repo_name, readme_content, model):
 
 
 def main(org_name, export_dir, summary_dir, model):
-    """ """
+    """
+    default description
+    """
     repos = get_repos(org_name, TOKEN, export_dir)
 
     # Create a directory to save summaries
